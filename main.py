@@ -2,22 +2,21 @@ from tabuleiro import criar_tabuleiro, mostrar_tabuleiro, verificar_vitoria, tab
 from jogadores import jogada_computador
 
 def rodada(modo, jogador1, computador):
-    vitorias = {"X": 0, "O": 0, "Empate": 0} # Inicia o placar
-    jogador2 = "O" if jogador1 == "X" else "X"  # Define o jogador 2 com base no símbolo escolhido por jogador 1
-    jogar_mais = True # Variável para controlar se o jogo continua
+    vitorias = {"X": 0, "O": 0, "Empate": 0} 
+    jogador2 = "O" if jogador1 == "X" else "X"  
+    jogar_mais = True 
 
     while jogar_mais:
-        tabuleiro = criar_tabuleiro() # Cria um novo tabuleiro para a rodada
-        jogador_atual = jogador1 # Começa com o jogador 1
-        mostrar_tabuleiro(tabuleiro) # Exibe o tabuleiro inicial
-
+        tabuleiro = criar_tabuleiro() 
+        jogador_atual = jogador1 
+        mostrar_tabuleiro(tabuleiro) 
 
         while True:
             if computador and jogador_atual == computador:
                 pos = jogada_computador(tabuleiro, movimento_valido)
                 print(f"\nComputador ({computador}) escolheu a posição {pos}")
             else:
-                # Se for jogador humano, recebe input do usuário
+              
                 try:
                     pos = int(input(f"\nJogador {jogador_atual}, escolha uma casa (1-9): "))
                     if not movimento_valido(tabuleiro, pos):
@@ -28,7 +27,7 @@ def rodada(modo, jogador1, computador):
                     continue
 
             linha, coluna = POSITIONS[pos]
-            tabuleiro[linha][coluna] = jogador_atual # Atualiza o tabuleiro com a jogada do jogador atual
+            tabuleiro[linha][coluna] = jogador_atual 
             mostrar_tabuleiro(tabuleiro)
 
             if verificar_vitoria(tabuleiro, jogador_atual):
@@ -42,18 +41,16 @@ def rodada(modo, jogador1, computador):
 
             jogador_atual = jogador1 if jogador_atual == jogador2 else jogador2 # Alterna entre os jogadores
 
-        print(f"\nPlacar atual: X = {vitorias['X']} | O = {vitorias['O']} | Empates = {vitorias['Empate']}") # Mostra o placar parcial
-        resposta = input("\nJogar outra rodada? (s = sim / n = não): ").lower() # Pergunta se o jogador quer jogar mais uma rodada
-        jogar_mais = (resposta == "s") # Continua ou encerra o laço externo
+        print(f"\nPlacar atual: X = {vitorias['X']} | O = {vitorias['O']} | Empates = {vitorias['Empate']}")
+        resposta = input("\nJogar outra rodada? (s = sim / n = não): ").lower() 
+        jogar_mais = (resposta == "s") 
 
-    # Exibe o placar final após todas as rodadas
     print("\n=== FIM DO JOGO ===")
     print("\nPlacar final:")
     print(f"X venceu {vitorias['X']} rodada(s)")
     print(f"O venceu {vitorias['O']} rodada(s)")
     print(f"Empates: {vitorias['Empate']}")
    
-
 def jogar():
     print("=== JOGO DA VELHA ===")
     while True:
